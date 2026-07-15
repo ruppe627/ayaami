@@ -2,7 +2,7 @@
    あやあみ — アプリ本体（ルーティング＋全画面）
    ========================================================= */
 (function(){
-  const APP_VERSION = "v29";
+  const APP_VERSION = "v30";
   let D = window.DATA;
   const fmtMin = window.fmtMin, yen = window.yen;
 
@@ -172,7 +172,7 @@
     const top = `<div class="row-foot"><span class="badge ${s.cls}">${s.label}</span><span class="meta">${w.recipient}</span></div>`;
     return `
     <div class="panel wcard ${w.ac}" data-go="work/${w.id}">
-      <div class="photo-wrap">${photo(w.knit,mainImage)}<span class="corner">${w.corner}</span></div>
+      <div class="photo-wrap">${photo(w.knit,mainImage)}</div>
       <div class="body">
         <div class="ttl">${w.title}</div>
         <div class="sub">${w.category}・${w.recipient}</div>
@@ -211,7 +211,7 @@
     return `
     <button class="backbtn" data-route="works">← 作品コレクションへ</button>
     <div class="detail-hero">
-      <div class="panel hero-photo ${w.ac}">${photo(w.knit,mainImage,76)}<span class="corner big">${w.corner}</span></div>
+      <div class="panel hero-photo ${w.ac}">${photo(w.knit,mainImage,76)}</div>
       <div class="hero-right">
         <div class="hero-chips">
           <span class="badge ${s.cls}">${s.label}</span>
