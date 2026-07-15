@@ -1,22 +1,22 @@
-const CACHE_NAME = "ayaami-pwa-v30";
+const CACHE_NAME = "ayaami-pwa-v31";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./index.html?app=v30",
-  "./island-theme.css?v=30",
-  "./island-data.js?v=30",
-  "./island-db-bridge.js?v=30",
-  "./island-app.js?v=30",
-  "./icons/icon-192.png?v=30",
-  "./icons/icon-512.png?v=30",
-  "./icons/apple-touch-icon.png?v=30",
-  "./icons/favicon-32.png?v=30",
-  "./icons/favicon-16.png?v=30",
+  "./index.html?app=v31",
+  "./island-theme.css?v=31",
+  "./island-data.js?v=31",
+  "./island-db-bridge.js?v=31",
+  "./island-app.js?v=31",
+  "./icons/icon-192.png?v=31",
+  "./icons/icon-512.png?v=31",
+  "./icons/apple-touch-icon.png?v=31",
+  "./icons/favicon-32.png?v=31",
+  "./icons/favicon-16.png?v=31",
   "./js/db.js",
   "./js/repositories.js",
   "./js/storage.js",
   "./js/export-import.js",
-  "./manifest.json?v=30",
+  "./manifest.json?v=31",
 ];
 
 self.addEventListener("install", (event) => {

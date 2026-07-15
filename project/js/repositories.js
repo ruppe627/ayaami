@@ -1,4 +1,4 @@
-import { STORE_NAMES, getAllFromStore, requestToPromise, withStore } from "./db.js?v=27";
+import { STORE_NAMES, getAllFromStore, requestToPromise, withStore } from "./db.js?v=31";
 
 export const WORK_STATUSES = ["構想中", "制作予定", "制作中", "完成", "保留"];
 

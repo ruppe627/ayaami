@@ -2,7 +2,7 @@
    あやあみ — アプリ本体（ルーティング＋全画面）
    ========================================================= */
 (function(){
-  const APP_VERSION = "v30";
+  const APP_VERSION = "v31";
   let D = window.DATA;
   const fmtMin = window.fmtMin, yen = window.yen;
 
@@ -184,7 +184,7 @@
   function cardWish(w){
     return `
     <div class="panel wcard ${w.ac}" data-go="wishlist">
-      <div class="photo-wrap">${photo(w.knit,w.image||w.emoji)}<span class="corner">${w.corner}</span>
+      <div class="photo-wrap">${photo(w.knit,w.image||w.emoji)}
         <span class="prio-tag pri${w.priority}">優先度 ${D.priorityMap[w.priority]}</span></div>
       <div class="body">
         <div class="ttl">${w.title}</div>
@@ -558,7 +558,7 @@
     <div class="grid-2">
       ${D.wishlist.length ? D.wishlist.slice().sort((a,b)=>b.priority-a.priority).map(w=>`
         <div class="panel wish-card ${w.ac}">
-          <div class="wish-photo">${photo(w.knit,w.image||w.emoji,46)}<span class="corner">${w.corner}</span><span class="prio-tag pri${w.priority}">優先度 ${D.priorityMap[w.priority]}</span></div>
+          <div class="wish-photo">${photo(w.knit,w.image||w.emoji,46)}<span class="prio-tag pri${w.priority}">優先度 ${D.priorityMap[w.priority]}</span></div>
           <div class="wish-body">
             <div class="ttl">${w.title}</div>
             <div class="wish-meta"><span class="pill pill-sky">${w.recipient}</span>${w.deadline?`<span class="pill pill-coral">〆 ${w.deadline}</span>`:'<span class="pill pill-grey">締切なし</span>'}</div>

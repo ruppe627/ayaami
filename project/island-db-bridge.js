@@ -1,4 +1,4 @@
-import { STORE_NAMES } from "./js/db.js?v=27";
+import { STORE_NAMES } from "./js/db.js?v=31";
 import {
   deleteByIndex,
   deleteWork,
@@ -10,11 +10,10 @@ import {
   saveWorkYarn,
   saveYarn,
   seedSampleData,
-} from "./js/repositories.js?v=27";
-import { downloadBackup, importBackup } from "./js/export-import.js?v=27";
+} from "./js/repositories.js?v=31";
+import { downloadBackup, importBackup } from "./js/export-import.js?v=31";
 
 const acClasses = ["ac-flower", "ac-coral", "ac-teal", "ac-grape", "ac-leaf", "ac-lemon", "ac-sky"];
-const corners = ["🌸", "🌷", "🌿", "⭐", "🍀", "🌻", "🫧"];
 const workEmojiByCategory = {
   "ウェア": "🧥",
   "カーディガン": "🧥",
@@ -164,7 +163,6 @@ function buildData(stores) {
       knit: pick(["#ece1cb", "#ecdfc8", "#efe6cf", "#e4eedd", "#f2dde2", "#dcecd9", "#e9e1cc", "#efe1e4"], index),
       emoji: workEmojiByCategory[category] || "🧶",
       ac: pick(acClasses, index),
-      corner: pick(corners, index),
       images,
       yarns: (workYarnsByWork.get(work.id) || []).map((link) => link.id),
       patterns: (workPatternsByWork.get(work.id) || []).map((link) => link.pattern_id),
@@ -302,7 +300,6 @@ function buildData(stores) {
         mime: imageBlob.mime_type || "",
       } : null,
       ac: pick(acClasses, index + 2),
-      corner: pick(corners, index + 2),
     };
   });
 
