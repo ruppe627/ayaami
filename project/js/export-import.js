@@ -1,5 +1,5 @@
-import { STORE_NAMES, clearStore } from "./db.js?v=27";
-import { repositories } from "./repositories.js?v=27";
+import { STORE_NAMES, clearStore } from "./db.js?v=28";
+import { repositories } from "./repositories.js?v=28";
 
 function blobToDataUrl(blob) {
   return new Promise((resolve, reject) => {
