@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+*.log
+
+# Local browser/PWA state or generated backups
+*.tmp
+*.bak
+*backup*
+ayachan-knitting-backup-*.json
+
+# Local-only prototypes and generated test artifacts
+project/wireframe-work.html
+backup-test.html
+backup-cleanup.html

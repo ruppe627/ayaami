@@ -1,0 +1,357 @@
+/* =========================================================
+   AYAAMI — "Island Life"  あつ森インスパイアの編み物ノート
+   空〜芝生 / 生成りパネル / Nookティール / 木目 / ベルゴールド
+   ========================================================= */
+
+:root{
+  /* ---- sky & ground ---- */
+  --sky:#a6e0f5;
+  --sky-2:#c8f0fb;
+  --meadow:#bdec84;
+  --grass:#8fd84f;
+  --grass-d:#5fb733;
+
+  /* ---- panels ---- */
+  --cream:#fffdf3;       /* パネル白 */
+  --sand:#fdf3d4;        /* パネル地（生成り） */
+  --sand-2:#f6e6b8;
+  --line:#ecd99f;
+
+  /* ---- nook teal ---- */
+  --teal:#23c6bb;
+  --teal-l:#5fe0d6;
+  --teal-d:#149a90;
+
+  /* ---- leaf ---- */
+  --leaf:#79cf3e;
+  --leaf-l:#a3e26f;
+  --leaf-d:#4f9e26;
+
+  /* ---- wood ---- */
+  --wood:#d6a05f;
+  --wood-l:#edc88e;
+  --wood-d:#ab6f30;
+
+  /* ---- accents (カラフルな差し色) ---- */
+  --flower:#ff9ac0;
+  --flower-d:#f56fa3;
+  --coral:#ff8a5c;
+  --coral-d:#ec5f34;
+  --lemon:#ffd23e;
+  --lemon-d:#ecb015;
+  --grape:#b48cf0;
+  --grape-d:#8a5fd6;
+  --sky-btn:#43b6ee;
+  --sky-btn-d:#1f8fcc;
+  --bell:#ffcf57;        /* ベルゴールド */
+  --bell-d:#e9aa28;
+  --orange:#f4a64d;
+  --sky-btn:#5cb8e6;
+  --sky-btn-d:#3a93c4;
+
+  /* ---- text ---- */
+  --ink:#6a5636;         /* 温かみのあるブラウン */
+  --ink-soft:#a4916c;
+  --ink-on:#3c5a2e;      /* 緑地の上の文字 */
+
+  --font-round:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;
+  --font-latin:"Baloo 2","M PLUS Rounded 1c",cursive;
+
+  --r-xl:30px;
+  --r-lg:22px;
+  --r-md:16px;
+  --r-pill:999px;
+  --shadow-soft:0 10px 22px rgba(90,120,70,.16);
+  --shadow-card:0 14px 30px rgba(80,110,60,.18);
+
+  --leaves:1; /* tweak: 装飾の葉っぱ密度 */
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-round); font-weight:500;
+  color:var(--ink);
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+.app-version{
+  position:fixed;
+  right:max(10px, env(safe-area-inset-right));
+  bottom:max(10px, env(safe-area-inset-bottom));
+  z-index:50;
+  min-width:42px;
+  height:30px;
+  border:2px solid rgba(255,255,255,.9);
+  border-radius:999px;
+  background:rgba(255,253,243,.88);
+  color:var(--ink-soft);
+  box-shadow:0 6px 16px rgba(90,120,70,.16);
+  font:800 12px/1 var(--font-latin);
+  cursor:pointer;
+}
+
+/* =========================================================
+   背景 — 空→芝生、ふんわり雲、遠くの木
+   ========================================================= */
+.bg-stage{
+  position:fixed; inset:0; z-index:-3;
+  background:
+    linear-gradient(180deg, #8fd6f5 0%, #aee6fa 26%, #d4f3e6 50%, #bdec84 72%, #93d653 100%);
+}
+.bg-clouds{
+  position:fixed; inset:0; z-index:-2; pointer-events:none; opacity:.9;
+  background:
+    radial-gradient(60px 30px at 16% 16%, #fff 60%, transparent 62%),
+    radial-gradient(80px 38px at 22% 19%, #fff 60%, transparent 62%),
+    radial-gradient(55px 28px at 13% 21%, #fff 60%, transparent 62%),
+    radial-gradient(70px 34px at 78% 12%, #fff 60%, transparent 62%),
+    radial-gradient(95px 44px at 86% 16%, #fff 60%, transparent 62%),
+    radial-gradient(58px 30px at 70% 17%, #fff 60%, transparent 62%);
+  filter:drop-shadow(0 6px 8px rgba(120,150,120,.12));
+}
+/* 地平線の芝生＋丸い茂み */
+.bg-ground{
+  position:fixed; left:0; right:0; bottom:0; height:130px; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(40px 40px at 6% 100%, var(--grass) 60%, transparent 62%),
+    radial-gradient(54px 54px at 16% 100%, var(--grass-d) 60%, transparent 62%),
+    radial-gradient(46px 46px at 27% 100%, var(--grass) 60%, transparent 62%),
+    radial-gradient(60px 60px at 50% 100%, var(--grass-d) 60%, transparent 62%),
+    radial-gradient(44px 44px at 70% 100%, var(--grass) 60%, transparent 62%),
+    radial-gradient(56px 56px at 84% 100%, var(--grass-d) 60%, transparent 62%),
+    radial-gradient(42px 42px at 95% 100%, var(--grass) 60%, transparent 62%);
+  opacity:.5;
+}
+
+/* 浮遊する葉っぱ（装飾） */
+.leaf-float{ position:fixed; z-index:-1; pointer-events:none; opacity:calc(.5*var(--leaves));
+  animation:floatleaf 9s ease-in-out infinite alternate; }
+@keyframes floatleaf{ from{transform:translateY(0) rotate(-8deg);} to{transform:translateY(16px) rotate(10deg);} }
+@media (prefers-reduced-motion: reduce){ .leaf-float{ animation:none; } }
+
+/* =========================================================
+   葉っぱアイコン（共通パーツ）
+   ========================================================= */
+.leaf{ display:inline-block; width:1em; height:1em; position:relative; }
+.leaf::before{ content:""; position:absolute; inset:0;
+  background:linear-gradient(135deg,var(--leaf-l),var(--leaf) 60%,var(--leaf-d));
+  border-radius:0 100% 0 100%;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);
+  transform:rotate(0deg); }
+
+/* =========================================================
+   見出しテキスト
+   ========================================================= */
+.title-jp{ font-family:var(--font-round); font-weight:800; color:var(--ink); letter-spacing:.02em; }
+.title-latin{ font-family:var(--font-latin); font-weight:800; }
+.title-leaf{ color:var(--leaf-d); }
+
+/* =========================================================
+   ぷにっとボタン（押すと沈む 任天堂風）
+   ========================================================= */
+.btn{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border:none; cursor:pointer; user-select:none;
+  font-family:var(--font-round); font-weight:800; font-size:15.5px; letter-spacing:.02em; color:#fff;
+  padding:13px 24px; min-height:50px; border-radius:var(--r-pill);
+  box-shadow:0 5px 0 var(--btn-edge,#2b9b8f), 0 9px 14px rgba(60,90,50,.22);
+  transition:transform .08s ease, box-shadow .08s ease, filter .12s ease;
+  text-shadow:0 1px 1px rgba(0,0,0,.12);
+}
+.btn::before{ content:""; position:absolute; left:14%; right:14%; top:5px; height:32%;
+  border-radius:var(--r-pill); background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,0)); pointer-events:none; }
+.btn:active{ transform:translateY(4px); box-shadow:0 1px 0 var(--btn-edge,#2b9b8f), 0 3px 7px rgba(60,90,50,.2); }
+.btn:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
+
+.btn-teal{   background:var(--teal);   --btn-edge:var(--teal-d); }
+.btn-leaf{   background:var(--leaf);   --btn-edge:var(--leaf-d); }
+.btn-flower{ background:var(--flower); --btn-edge:var(--flower-d); }
+.btn-coral{  background:var(--coral);  --btn-edge:var(--coral-d); }
+.btn-bell{   background:var(--bell);   --btn-edge:var(--bell-d); color:#7a5712; text-shadow:0 1px 0 rgba(255,255,255,.4); }
+.btn-sky{    background:var(--sky-btn);--btn-edge:var(--sky-btn-d); }
+.btn-wood{   background:var(--wood);   --btn-edge:var(--wood-d); }
+/* 白ボタン（ゴースト） */
+.btn-cream{  background:var(--cream);  --btn-edge:#e2d3a8; color:var(--ink); text-shadow:none; }
+
+.btn-sm{ font-size:13.5px; padding:9px 17px; min-height:40px; box-shadow:0 4px 0 var(--btn-edge,#2b9b8f), 0 7px 10px rgba(60,90,50,.2); }
+.btn-sm:active{ box-shadow:0 1px 0 var(--btn-edge,#2b9b8f), 0 3px 6px rgba(60,90,50,.18); }
+.btn-lg{ font-size:18px; padding:16px 32px; min-height:58px; }
+
+/* =========================================================
+   カード / パネル（生成り×角丸×やさしい影）
+   ========================================================= */
+.panel{
+  position:relative; background:var(--cream); border-radius:var(--r-lg);
+  box-shadow:var(--shadow-card); border:2px solid #fff;
+}
+.panel-sand{ background:var(--sand); }
+
+/* 木の看板パネルヘッダー */
+.panel-head{
+  display:flex; align-items:center; gap:9px; padding:13px 18px;
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
+  background:linear-gradient(var(--head-c,var(--teal)),var(--head-d,var(--teal-d)));
+  color:#fff; font-family:var(--font-round); font-weight:800; font-size:16px;
+  text-shadow:0 1px 1px rgba(0,0,0,.15);
+}
+.panel-head .en{ margin-left:auto; font-family:var(--font-latin); font-weight:700; font-size:13px; opacity:.85; }
+.head-teal{   --head-c:var(--teal-l);   --head-d:var(--teal-d); }
+.head-leaf{   --head-c:var(--leaf-l);   --head-d:var(--leaf-d); }
+.head-flower{ --head-c:#f7b9cd;          --head-d:var(--flower-d); }
+.head-wood{   --head-c:var(--wood-l);   --head-d:var(--wood-d); }
+.head-bell{   --head-c:#ffdd84;          --head-d:var(--bell-d); color:#7a5712; text-shadow:0 1px 0 rgba(255,255,255,.4); }
+.panel-body{ padding:18px; }
+
+/* =========================================================
+   タブ / チップ
+   ========================================================= */
+.chip{
+  display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+  font-family:var(--font-round); font-weight:700; font-size:14px;
+  padding:9px 18px; min-height:42px; border-radius:var(--r-pill);
+  color:var(--ink-soft); background:var(--cream);
+  border:2px solid var(--line); box-shadow:0 3px 0 #ece0bd;
+  transition:transform .08s, box-shadow .08s, color .1s, background .1s;
+}
+.chip:active{ transform:translateY(2px); box-shadow:0 1px 0 #ece0bd; }
+.chip[aria-pressed="true"]{
+  color:#fff; background:var(--flower); border-color:var(--flower-d); box-shadow:0 3px 0 var(--flower-d);
+}
+
+/* =========================================================
+   ステータスバッジ（葉っぱタグ風）
+   ========================================================= */
+.badge{
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--font-round); font-weight:800; font-size:12.5px; color:#fff;
+  padding:5px 14px; border-radius:var(--r-pill); box-shadow:0 2px 0 rgba(0,0,0,.08);
+  text-shadow:0 1px 1px rgba(0,0,0,.12);
+}
+.badge.st-done{   background:var(--teal); }
+.badge.st-making{ background:var(--flower-d); }
+.badge.st-plan{   background:var(--sky-btn); }
+.badge.st-idea{   background:var(--leaf); }
+.badge.st-hold{   background:#b8a98a; }
+
+/* =========================================================
+   進捗バー
+   ========================================================= */
+.progress{
+  height:14px; border-radius:var(--r-pill); background:#e9ddbb; overflow:hidden;
+  box-shadow:inset 0 2px 3px rgba(120,100,60,.2); border:2px solid #fff;
+}
+.progress > span{ display:block; height:100%; border-radius:var(--r-pill);
+  background:linear-gradient(90deg,var(--leaf-l),var(--leaf)); box-shadow:inset 0 2px 2px rgba(255,255,255,.5); }
+
+/* =========================================================
+   写真プレースホルダ（毛糸テクスチャ）
+   ========================================================= */
+.knit-photo{
+  position:relative; width:100%; height:100%;
+  background-color:var(--knit,#e9ddc3);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.2) 0 8px, rgba(0,0,0,.03) 8px 16px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.12) 0 8px, rgba(0,0,0,.025) 8px 16px);
+  display:grid; place-items:center;
+}
+.knit-photo .knit-emoji{ font-size:50px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.14)); }
+
+/* ベル金貨 */
+.bell-coin{ display:inline-grid; place-items:center; width:1.4em; height:1.4em; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff0b8, var(--bell) 55%, var(--bell-d));
+  color:#8a5e10; font-weight:900; font-size:.7em; box-shadow:inset 0 -2px 2px rgba(150,100,0,.3), 0 2px 3px rgba(120,90,20,.25); }
+
+/* 点線ディバイダ */
+.dot-divider{ height:0; border-bottom:3px dotted var(--line); margin:14px 0; }
+
+/* =========================================================
+   作品カードのアクセント色（カラフル）
+   ========================================================= */
+.ac-teal{   --ac:var(--teal);   --ac-d:var(--teal-d);   --ac-soft:#e6faf8; }
+.ac-leaf{   --ac:var(--leaf);   --ac-d:var(--leaf-d);   --ac-soft:#eefada; }
+.ac-flower{ --ac:var(--flower); --ac-d:var(--flower-d); --ac-soft:#fff0f6; }
+.ac-coral{  --ac:var(--coral);  --ac-d:var(--coral-d);  --ac-soft:#fff0e8; }
+.ac-lemon{  --ac:var(--lemon);  --ac-d:var(--lemon-d);  --ac-soft:#fffae0; }
+.ac-grape{  --ac:var(--grape);  --ac-d:var(--grape-d);  --ac-soft:#f6effd; }
+.ac-sky{    --ac:var(--sky-btn);--ac-d:var(--sky-btn-d);--ac-soft:#e9f6fe; }
+.ac-bell{   --ac:var(--bell);   --ac-d:var(--bell-d);   --ac-soft:#fff7e0; }
+
+/* =========================================================
+   フォーム部品
+   ========================================================= */
+.field{ display:flex; flex-direction:column; gap:7px; min-width:0; }
+.field > label{ font-weight:800; font-size:13.5px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; }
+.field .req{ color:#fff; background:var(--flower); font-size:10px; font-weight:800; padding:2px 7px; border-radius:var(--r-pill); }
+.input, .textarea, .select{
+  font-family:var(--font-round); font-weight:600; font-size:15px; color:var(--ink);
+  background:#fff; border:2.5px solid var(--line); border-radius:var(--r-md);
+  padding:12px 15px; width:100%; max-width:100%; min-width:0; transition:border-color .12s, box-shadow .12s;
+}
+.input, .select{ min-height:64px; }
+.input[type="date"]{
+  min-height:64px;
+  min-width:0;
+  line-height:normal;
+}
+.input:focus, .textarea:focus, .select:focus{ outline:none; border-color:var(--flower); box-shadow:0 0 0 4px rgba(255,154,192,.25); }
+.textarea{ resize:vertical; min-height:90px; line-height:1.7; }
+.select{ appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23a4916c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:42px; cursor:pointer; }
+.date-combo{ display:grid; grid-template-columns:minmax(84px,1.2fr) minmax(64px,.85fr) minmax(64px,.85fr); gap:8px; width:100%; min-width:0; }
+.date-combo .select{ min-height:58px; padding:10px 30px 10px 10px; font-size:14px; background-position:right 8px center; }
+
+/* セグメント（状態選択など） */
+.seg{ display:flex; flex-wrap:wrap; gap:8px; }
+.seg button{ cursor:pointer; font-family:var(--font-round); font-weight:800; font-size:14px; color:var(--ink-soft);
+  padding:10px 18px; min-height:44px; border-radius:var(--r-pill); background:#fff; border:2.5px solid var(--line);
+  box-shadow:0 3px 0 #ece0bd; transition:transform .08s, box-shadow .08s; }
+.seg button:active{ transform:translateY(2px); box-shadow:0 1px 0 #ece0bd; }
+.seg button[aria-pressed="true"]{ color:#fff; background:var(--flower); border-color:var(--flower-d); box-shadow:0 3px 0 var(--flower-d); }
+
+/* アップロード枠 */
+.uploader{ display:grid; place-items:center; gap:8px; min-height:150px; cursor:pointer;
+  border:3px dashed var(--line); border-radius:var(--r-lg); background:var(--sand);
+  color:var(--ink-soft); font-weight:800; font-size:14px; text-align:center; padding:20px; transition:border-color .12s, background .12s; }
+.uploader:hover{ border-color:var(--flower); background:#fff6fa; color:var(--flower-d); }
+.uploader .up-ico{ font-size:34px; }
+
+/* リスト行 */
+.list-row{ display:flex; align-items:center; gap:14px; padding:13px 16px; background:#fff; border-radius:var(--r-md);
+  border:2px solid var(--line); box-shadow:0 3px 0 #f0e6c8; }
+.list-row + .list-row{ margin-top:10px; }
+.list-row .l-ico{ width:46px; height:46px; border-radius:12px; display:grid; place-items:center; font-size:24px; flex-shrink:0;
+  background:var(--ac-soft,#f7f0dd); box-shadow:inset 0 0 0 2px var(--ac,var(--line)); }
+.list-row .l-main{ flex:1; min-width:0; }
+.list-row .l-title{ font-weight:800; font-size:15.5px; color:var(--ink); }
+.list-row .l-sub{ font-size:12.5px; color:var(--ink-soft); font-weight:600; margin-top:2px; }
+
+/* 空状態 */
+.empty{ text-align:center; padding:48px 20px; color:var(--ink-soft); }
+.empty .e-ico{ font-size:56px; filter:drop-shadow(0 4px 5px rgba(120,140,90,.2)); }
+.empty .e-msg{ font-weight:800; font-size:16px; margin-top:12px; }
+
+/* ピル（在庫・優先度など小タグ） */
+.pill{ display:inline-flex; align-items:center; gap:4px; font-weight:800; font-size:12px; padding:4px 11px; border-radius:var(--r-pill); }
+.pill-leaf{ background:#e9f7d6; color:var(--leaf-d); }
+.pill-bell{ background:#fff2cc; color:var(--bell-d); }
+.pill-coral{ background:#ffe5da; color:var(--coral-d); }
+.pill-grey{ background:#eee7d6; color:var(--ink-soft); }
+.pill-sky{ background:#e2f1fc; color:var(--sky-btn-d); }
+
+/* セクション見出し */
+.sec-title{ display:flex; align-items:center; gap:12px; margin:6px 2px 18px; flex-wrap:wrap; }
+.sec-title .ttl-box h1{ margin:0; font-family:var(--font-round); font-weight:900; font-size:clamp(24px,3.6vw,34px); color:var(--ink); }
+.sec-title .en{ display:block; font-family:var(--font-latin); font-weight:700; font-size:13px; color:var(--flower-d); letter-spacing:.08em; }
+.sec-title .ico{ width:40px; height:40px; border-radius:13px; display:grid; place-items:center; flex-shrink:0;
+  background:var(--ac,var(--flower)); box-shadow:0 4px 0 var(--ac-d,var(--flower-d)); }
+.sec-title .ico svg{ width:25px; height:25px; }
+.sec-title .spacer{ flex:1; }
+
+.grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+@media (max-width:720px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+
+/* utility */
+.row{ display:flex; align-items:center; gap:12px; }
+.wrap{ flex-wrap:wrap; }
+.spacer{ flex:1; }

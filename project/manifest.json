@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "あやあみ",
+  "short_name": "あやあみ",
+  "description": "作品、毛糸、編み図、制作ログをiPadで管理する編み物PWA",
+  "start_url": "./index.html?app=v27",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "orientation": "any",
+  "background_color": "#fff0f8",
+  "theme_color": "#ff9ac0",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
