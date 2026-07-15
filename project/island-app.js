@@ -2,7 +2,7 @@
    あやあみ — アプリ本体（ルーティング＋全画面）
    ========================================================= */
 (function(){
-  const APP_VERSION = "v28";
+  const APP_VERSION = "v29";
   let D = window.DATA;
   const fmtMin = window.fmtMin, yen = window.yen;
 
